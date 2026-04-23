@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/astroglue-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/astroglue-{{ version }}.tar.gz
   sha256: ad15c3810f0617926aab7f685b6772b389c6eed74a2aca365f7bceddc09e6647
 
 build:
@@ -14,16 +14,16 @@ build:
     - AstroGlue = AstroGlue.__main__:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools >=61
     - setuptools-scm >=7
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - numpy <2.0.0
     - pandas
     - pyqt
@@ -39,6 +39,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/Kam-s18/AstroGlue
